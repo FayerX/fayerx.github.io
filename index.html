@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTBK Scroll | Edukasi Masa Kini</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg-dark: #09090b;
+            --card-bg: #18181b;
+            --text-main: #f4f4f5;
+            --text-dim: #a1a1aa;
+            --correct: #22c55e;
+            --wrong: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background-color: var(--bg-dark); 
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Container Scroll */
+        #feed {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; 
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+        #feed::-webkit-scrollbar { display: none; }
+
+        .question-card {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            position: relative;
+            background: linear-gradient(180deg, rgba(9,9,11,1) 0%, rgba(24,24,27,1) 100%);
+        }
+
+        /* Header Kategori */
+        .header {
+            position: absolute;
+            top: 50px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .category-badge {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .content-wrapper {
+            max-width: 450px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            font-weight: 600;
+            text-align: left;
+            background: linear-gradient(to right, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Tombol Jawaban */
+        .option-btn {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid #27272a;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) { 
+            background-color: #27272a;
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+
+        .option-btn:disabled { cursor: default; }
+
+        .correct { 
+            background-color: rgba(34, 197, 94, 0.2) !important; 
+            border-color: var(--correct) !important; 
+            color: #fff;
+            font-weight: 600;
+        }
+        .wrong { 
+            background-color: rgba(239, 68, 68, 0.2) !important; 
+            border-color: var(--wrong) !important; 
+            opacity: 0.8;
+        }
+
+        /* Penjelasan / Pembahasan */
+        .explanation {
+            background: #111113;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 15px;
+            border: 1px dashed #3f3f46;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            color: var(--text-dim);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Skor Akhir */
+        .result-card h1 {
+            font-size: 5rem;
+            margin: 10px 0;
+            background: linear-gradient(to bottom, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .reload-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s;
+        }
+
+        .reload-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4); }
+
+        .swipe-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        /* Glow Effect */
+        .glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="feed"></div>
+
+    <script>
+        // Data soal yang sama dengan tambahan estetika
+        const questions = [
+            {
+                category: "Pengetahuan Kuantitatif",
+                text: "Jika 4 ÷ (1/2) = √t, maka nilai t adalah...",
+                options: ["8", "16", "32", "64", "128"],
+                answerIndex: 3, 
+                explanation: "Langkah: 4 ÷ 0.5 = 8. <br>Maka, 8 = √t. <br>Kuadratkan kedua ruas: 8² = t → <b>t = 64</b>."
+            },
+            {
+                category: "Penalaran Matematika",
+                text: "Dari 15 pria dan 10 wanita, akan dipilih Ketua, Bendahara, dan Sekretaris. Jika Sekretaris harus wanita, berapa banyak cara?",
+                options: ["5.400", "5.520", "5.750", "5.760", "6.000"],
+                answerIndex: 1, 
+                explanation: "Sekretaris (10 pilihan wanita). Sisa 2 posisi dari 24 orang (15+10-1). <br>Cara = 10 × P(24, 2) = 10 × (24 × 23) = <b>5.520</b>."
+            },
+            {
+                category: "Penalaran Umum",
+                text: "Semua IT pandai coding. Sebagian IT suka game. Kesimpulan yang tepat?",
+                options: [
+                    "Semua penyuka game pandai coding",
+                    "Sebagian IT suka game tapi tidak pandai coding",
+                    "Semua IT suka game",
+                    "Sebagian yang pandai coding suka bermain game",
+                    "Tidak ada kesimpulan"
+                ],
+                answerIndex: 3, 
+                explanation: "Karena semua anak IT pandai coding, maka anak IT yang suka game otomatis juga pandai coding. Jadi, ada sebagian orang pandai coding yang suka game."
+            },
+            {
+                category: "Kemampuan Memahami Bacaan",
+                text: "Manakah deretan kata baku menurut KBBI?",
+                options: [
+                    "Sistim, Jadwal, Apotek",
+                    "Sistem, Jadwal, Apotek",
+                    "Sistem, Jadual, Apotik",
+                    "Sistim, Jadual, Apotek",
+                    "Sistem, Jadwal, Apotik"
+                ],
+                answerIndex: 1, 
+                explanation: "Ingat: Sist<b>e</b>m (E), Jadwal (tanpa U), Apot<b>e</b>k (E)."
+            }
+        ];
+
+        const feed = document.getElementById('feed');
+        let currentScore = 0;
+
+        function renderFeed() {
+            feed.innerHTML = ''; 
+            currentScore = 0;
+
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+
+                const glow = document.createElement('div');
+                glow.className = 'glow';
+                card.appendChild(glow);
+
+                const header = document.createElement('div');
+                header.className = 'header';
+                header.innerHTML = `<span class="category-badge">${q.category} • ${index + 1}/${questions.length}</span>`;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'content-wrapper';
+
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.innerText = q.text;
+
+                const expDiv = document.createElement('div');
+                expDiv.className = 'explanation';
+                expDiv.innerHTML = `<b>💡 PEMBAHASAN</b><br>${q.explanation}`;
+
+                wrapper.appendChild(qText);
+
+                q.options.forEach((opt, optIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerHTML = `<span style="margin-right: 15px; opacity: 0.5">${String.fromCharCode(65 + optIndex)}.</span> ${opt}`;
+                    
+                    btn.onclick = () => {
+                        const buttons = wrapper.querySelectorAll('.option-btn');
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (optIndex === q.answerIndex) {
+                            btn.classList.add('correct');
+                            currentScore++;
+                        } else {
+                            btn.classList.add('wrong');
+                            buttons[q.answerIndex].classList.add('correct'); 
+                        }
+                        expDiv.style.display = 'block';
+                        document.getElementById('final-score-text').innerText = currentScore;
+                    };
+                    wrapper.appendChild(btn);
+                });
+
+                wrapper.appendChild(expDiv);
+                card.appendChild(header);
+                card.appendChild(wrapper);
+
+                if (index === 0) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'swipe-indicator';
+                    indicator.innerText = "Scroll ke bawah ↓";
+                    card.appendChild(indicator);
+                }
+
+                feed.appendChild(card);
+            });
+
+            // Result Card
+            const resultCard = document.createElement('div');
+            resultCard.className = 'question-card result-card';
+            resultCard.innerHTML = `
+                <div class="glow"></div>
+                <div class="content-wrapper" style="align-items: center; text-align: center;">
+                    <p style="text-transform: uppercase; letter-spacing: 2px;">Sesi Selesai</p>
+                    <h1 id="final-score-text">0</h1>
+                    <p>Skor Anda dari ${questions.length} soal</p>
+                    <button class="reload-btn" onclick="window.scrollTo(0,0); location.reload();">Ulangi Latihan</button>
+                </div>
+            `;
+            feed.appendChild(resultCard);
+        }
+
+        renderFeed();
+    </script>
+</body>
+</html>
