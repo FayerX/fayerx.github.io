@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FayerX - Sesi Belajar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>UTBK Scroll - Sesi Belajar</title>
+    <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
             background-color: #0d0d14; color: #f1f1f1;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            font-family: 'Coolvetica', sans-serif;
+            overflow: hidden; letter-spacing: 0.5px;
         }
 
         #feed {
-            height: 100%;
-            overflow-y: scroll;
+            height: 100%; overflow-y: scroll;
             scroll-snap-type: y mandatory; 
-            scrollbar-width: none;
-            scroll-behavior: smooth;
+            scrollbar-width: none; scroll-behavior: smooth;
         }
         #feed::-webkit-scrollbar { display: none; }
 
-        /* Top Navigation Overlay */
         .top-nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 20px; box-sizing: border-box;
@@ -31,10 +28,10 @@
         }
         .btn-home {
             pointer-events: auto;
-            color: #aaa; text-decoration: none; font-size: 0.9rem;
+            color: #aaa; text-decoration: none; font-size: 1.1rem;
             background: rgba(255, 255, 255, 0.1); padding: 8px 15px;
             border-radius: 20px; backdrop-filter: blur(5px);
-            transition: 0.3s;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
         }
         .btn-home:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
 
@@ -50,29 +47,26 @@
 
         .content-wrapper {
             max-width: 550px; width: 100%;
-            display: flex; flex-direction: column;
-            z-index: 10;
+            display: flex; flex-direction: column; z-index: 10;
         }
 
         .header {
-            font-weight: 600; color: #6366f1;
-            font-size: 0.9rem; text-transform: uppercase;
+            color: #6366f1; font-size: 1.1rem; text-transform: uppercase;
             letter-spacing: 2px; margin-bottom: 15px;
         }
 
         .question-text {
-            font-size: 1.3rem; margin-bottom: 30px;
-            line-height: 1.6; font-weight: 500;
+            font-size: 1.6rem; margin-bottom: 30px; line-height: 1.4; 
         }
 
         .option-btn {
             background-color: rgba(255, 255, 255, 0.05);
             color: white; border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 18px 20px; margin-bottom: 15px;
-            border-radius: 16px; font-size: 1.05rem;
+            border-radius: 16px; font-size: 1.2rem;
             text-align: left; cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            width: 100%; font-family: 'Poppins', sans-serif;
+            width: 100%; font-family: 'Coolvetica', sans-serif;
             backdrop-filter: blur(10px);
         }
 
@@ -82,7 +76,6 @@
         }
         .option-btn:disabled { cursor: default; opacity: 0.9; }
 
-        /* Modern Correct & Wrong states */
         .correct { 
             background-color: rgba(46, 204, 113, 0.2) !important; 
             border-color: #2ecc71 !important; 
@@ -96,10 +89,10 @@
         .explanation {
             background-color: rgba(255, 255, 255, 0.08);
             padding: 20px; border-radius: 16px; margin-top: 20px;
-            border-left: 5px solid #a855f7; font-size: 0.95rem;
-            line-height: 1.6; display: none; color: #e2e8f0;
+            border-left: 5px solid #a855f7; font-size: 1.1rem;
+            line-height: 1.4; display: none; color: #e2e8f0;
             backdrop-filter: blur(10px);
-            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: slideUp 0.4s forwards;
         }
 
         @keyframes slideUp {
@@ -107,23 +100,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .result-card h1 { font-size: 5rem; margin: 10px 0; color: #2ecc71; text-shadow: 0 0 20px rgba(46, 204, 113, 0.4); }
-        .result-card p { font-size: 1.2rem; color: #bbb; }
+        .result-card h1 { font-size: 6rem; margin: 10px 0; color: #2ecc71; text-shadow: 0 0 20px rgba(46, 204, 113, 0.4); }
+        .result-card p { font-size: 1.4rem; color: #bbb; }
 
         .reload-btn {
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             color: white; border: none; padding: 15px 35px;
-            border-radius: 30px; font-weight: 600; font-size: 1.1rem;
+            border-radius: 30px; font-size: 1.3rem;
             margin-top: 25px; cursor: pointer; transition: 0.3s;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Coolvetica', sans-serif;
             box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
         }
-
         .reload-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5); }
 
         .swipe-indicator {
             position: absolute; bottom: 30px; left: 50%;
-            transform: translateX(-50%); font-size: 0.85rem;
+            transform: translateX(-50%); font-size: 1rem;
             animation: bounce 2s infinite; color: #888;
             letter-spacing: 1px; text-transform: uppercase;
         }
@@ -138,49 +130,162 @@
 <body>
 
     <div class="top-nav">
-        <a href="index.html" class="btn-home">← Kembali</a>
+        <a href="index.html" class="btn-home">Kembali</a>
     </div>
 
     <div id="feed"></div>
 
     <script>
-        const questions = [
+        // Database Soal UTBK (Diperbanyak hingga batas maksimal)
+        const questionsDB = [
             {
                 category: "Pengetahuan Kuantitatif",
                 text: "Jika 4 ÷ (1/2) = √t, nilai t sama dengan ...",
-                options: ["A. 8", "B. 16", "C. 32", "D. 64", "E. 128"],
+                options: ["8", "16", "32", "64", "128"],
                 answerIndex: 3, 
                 explanation: "Selesaikan operasi pembagian terlebih dahulu: 4 ÷ (1/2) = 4 × 2 = 8. Persamaan menjadi 8 = √t. Untuk menghilangkan akar, kuadratkan kedua ruas: 8² = t, maka t = 64."
             },
             {
                 category: "Penalaran Matematika",
-                text: "Pertemuan keluarga dihadiri 15 laki-laki dan 10 perempuan. Akan dipilih pengurus dari yang hadir. Banyak cara terpilihnya pengurus dengan sekretaris perempuan adalah...",
-                options: ["A. 5.400", "B. 5.520", "C. 5.750", "D. 5.760"],
+                text: "Pertemuan dihadiri 15 laki-laki dan 10 perempuan. Akan dipilih pengurus (ketua, bendahara, sekretaris). Banyak cara terpilihnya pengurus dengan sekretaris perempuan adalah...",
+                options: ["5.400", "5.520", "5.750", "5.760"],
                 answerIndex: 1, 
-                explanation: "Total hadirin 25 orang. Posisi sekretaris wajib perempuan (10 pilihan). Sisa kursi (ketua & bendahara) diperebutkan oleh sisa orang (24 orang). Gunakan permutasi: P(24, 2) = 24 × 23 = 552. Total cara = 10 × 552 = 5.520."
+                explanation: "Posisi sekretaris wajib perempuan (10 pilihan). Sisa 2 kursi (ketua & bendahara) diperebutkan sisa orang (24 orang). Permutasi: P(24, 2) = 24 × 23 = 552. Total cara = 10 × 552 = 5.520."
             },
             {
                 category: "Penalaran Umum",
                 text: "Semua mahasiswa jurusan IT pandai coding. Sebagian mahasiswa jurusan IT suka main game. Kesimpulan yang tepat adalah...",
                 options: [
-                    "A. Semua yang suka game pandai coding.",
-                    "B. Sebagian mahasiswa IT tidak pandai coding.",
-                    "C. Sebagian mahasiswa yang pandai coding suka main game.",
-                    "D. Tidak ada kesimpulan."
+                    "Semua yang suka game pandai coding.",
+                    "Sebagian mahasiswa IT tidak pandai coding.",
+                    "Sebagian mahasiswa yang pandai coding suka main game.",
+                    "Tidak ada kesimpulan."
                 ],
                 answerIndex: 2, 
-                explanation: "Premis 1 (Semua IT = pandai coding). Premis 2 (Sebagian IT = suka game). Irisan dari keduanya adalah: ada mahasiswa IT yang pandai coding sekaligus suka game. Artinya, sebagian dari mereka yang pandai coding itu suka main game."
+                explanation: "Irisan dari kedua premis adalah: ada mahasiswa IT yang pandai coding sekaligus suka game. Artinya, sebagian dari mereka yang pandai coding itu suka main game."
+            },
+            {
+                category: "Pengetahuan Kuantitatif",
+                text: "Sebuah baju didiskon 20%, kemudian didiskon lagi 10%. Berapa total persentase diskon dari harga awal?",
+                options: ["28%", "30%", "32%", "35%"],
+                answerIndex: 0,
+                explanation: "Misal harga awal 100. Diskon pertama 20% = sisa harga 80. Diskon kedua 10% dari 80 = 8. Total harga yang dipotong adalah 20 + 8 = 28. Jadi diskon totalnya 28%."
+            },
+            {
+                category: "Pemahaman Bacaan",
+                text: "Penulisan kata serapan yang tepat dan baku menurut pedoman KBBI adalah...",
+                options: [
+                    "Sistim, Jadwal, Apotek",
+                    "Sistem, Jadwal, Apotek",
+                    "Sistem, Jadual, Apotik",
+                    "Sistem, Jadwal, Apotik"
+                ],
+                answerIndex: 1, 
+                explanation: "Kata baku yang benar menurut KBBI adalah 'Sistem' (bukan sistim), 'Jadwal' (bukan jadual), dan 'Apotek' (bukan apotik)."
+            },
+            {
+                category: "Penalaran Matematika",
+                text: "Sebuah proyek selesai oleh 12 pekerja dalam 20 hari. Jika ingin selesai dalam 15 hari, berapa tambahan pekerja yang diperlukan?",
+                options: ["3 pekerja", "4 pekerja", "16 pekerja", "20 pekerja"],
+                answerIndex: 1, 
+                explanation: "Perbandingan berbalik nilai. (12 pekerja × 20 hari) = (X pekerja × 15 hari). 240 = 15X. X = 16 pekerja. Karena sudah ada 12 pekerja, tambahan yang dibutuhkan adalah 16 - 12 = 4 pekerja."
+            },
+            {
+                category: "Pengetahuan Kuantitatif",
+                text: "Perhatikan barisan bilangan: 2, 5, 10, 17, 26, ... Angka selanjutnya adalah...",
+                options: ["34", "35", "36", "37"],
+                answerIndex: 3, 
+                explanation: "Pola selisih antar angka terus bertambah bilangan ganjil: (+3), (+5), (+7), (+9). Maka selisih selanjutnya adalah (+11). Angka berikutnya: 26 + 11 = 37."
+            },
+            {
+                category: "Penalaran Umum",
+                text: "Mobil : Bensin = Pelari : ...",
+                options: ["Lintasan", "Sepatu", "Makanan", "Keringat"],
+                answerIndex: 2,
+                explanation: "Analogi sebab-akibat (sumber energi). Mobil membutuhkan bensin untuk bergerak, sebagaimana pelari membutuhkan makanan untuk bergerak/berlari."
+            },
+            {
+                category: "Penalaran Matematika",
+                text: "Dua buah dadu dilempar bersamaan. Peluang munculnya mata dadu berjumlah 7 adalah...",
+                options: ["1/6", "1/12", "5/36", "1/4"],
+                answerIndex: 0,
+                explanation: "Total ruang sampel pelemparan 2 dadu = 36. Kombinasi jumlah 7 adalah (1,6), (2,5), (3,4), (4,3), (5,2), (6,1). Ada 6 kejadian. Peluang = 6/36 = 1/6."
+            },
+            {
+                category: "Penalaran Umum",
+                text: "Perhatikan deret huruf berikut: A, C, F, J, O, ... Huruf selanjutnya adalah...",
+                options: ["S", "T", "U", "V"],
+                answerIndex: 2,
+                explanation: "Lompatan antar huruf bertambah polanya. A ke C (+2), C ke F (+3), F ke J (+4), J ke O (+5). Maka lompatan selanjutnya adalah (+6). O + 6 huruf = U."
+            },
+            {
+                category: "Penalaran Matematika",
+                text: "Rata-rata nilai ulangan 10 siswa adalah 75. Jika nilai Budi dimasukkan, rata-ratanya menjadi 76. Berapa nilai Budi?",
+                options: ["80", "85", "86", "90"],
+                answerIndex: 2,
+                explanation: "Total nilai 10 siswa = 10 × 75 = 750. Total nilai 11 siswa (dengan Budi) = 11 × 76 = 836. Nilai Budi = 836 - 750 = 86."
+            },
+            {
+                category: "Penalaran Umum",
+                text: "Jika turun hujan, maka jalanan macet. Hari ini jalanan tidak macet. Kesimpulan yang sah adalah...",
+                options: [
+                    "Hari ini turun hujan",
+                    "Hari ini tidak turun hujan",
+                    "Jalanan lancar karena tidak hujan",
+                    "Tidak dapat disimpulkan"
+                ],
+                answerIndex: 1,
+                explanation: "Ini adalah bentuk logika Modus Tollens. Premis 1: Jika P maka Q. Premis 2: Negasi Q (tidak Q). Kesimpulan: Negasi P (tidak P). Karena jalanan tidak macet, maka hari ini tidak turun hujan."
+            },
+            {
+                category: "Pengetahuan Kuantitatif",
+                text: "Jika sistem persamaan 2x + y = 5 dan x - y = 1, berapakah nilai dari x × y ?",
+                options: ["1", "2", "3", "4"],
+                answerIndex: 1,
+                explanation: "Gunakan eliminasi. Tambahkan kedua persamaan: (2x + x) + (y - y) = 5 + 1. Diperoleh 3x = 6, maka x = 2. Substitusi x=2 ke x-y=1, maka 2-y=1, sehingga y=1. Nilai x × y = 2 × 1 = 2."
+            },
+            {
+                category: "Pemahaman Bacaan",
+                text: "Penggunaan tanda koma yang TEPAT terdapat pada kalimat...",
+                options: [
+                    "Dia tidak datang, karena sedang sakit.",
+                    "Meskipun hujan deras, dia tetap berangkat ke sekolah.",
+                    "Budi membeli buku, pensil dan penghapus.",
+                    "Ibu memasak di dapur sedangkan ayah membaca koran."
+                ],
+                answerIndex: 1,
+                explanation: "Tanda koma dipakai di belakang anak kalimat yang mendahului induk kalimat (seperti pada pilihan 'Meskipun hujan deras,...'). Kata 'karena' dan 'sedangkan' memiliki aturannya sendiri, dan pemerincian sebelum 'dan' wajib menggunakan koma."
+            },
+            {
+                category: "Penalaran Matematika",
+                text: "Sebuah kereta melaju dengan kecepatan 60 km/jam. Kereta lain berangkat dari stasiun yang sama 1 jam kemudian dengan kecepatan 80 km/jam. Berapa lama waktu yang dibutuhkan kereta kedua untuk menyusul kereta pertama?",
+                options: ["2 jam", "3 jam", "4 jam", "5 jam"],
+                answerIndex: 1,
+                explanation: "Kereta pertama sudah melaju sejauh 60 km (selisih jarak awal). Selisih kecepatan mereka adalah 80 - 60 = 20 km/jam. Waktu menyusul = Selisih Jarak ÷ Selisih Kecepatan = 60 ÷ 20 = 3 jam."
             }
         ];
 
+        // Fungsi untuk mengacak urutan soal (Fisher-Yates Shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         const feed = document.getElementById('feed');
         let currentScore = 0;
+        let shuffledQuestions = [];
 
         function renderFeed() {
             feed.innerHTML = ''; 
             currentScore = 0;
 
-            questions.forEach((q, index) => {
+            // Copy array soal lalu acak
+            shuffledQuestions = [...questionsDB];
+            shuffleArray(shuffledQuestions);
+
+            shuffledQuestions.forEach((q, index) => {
                 const card = document.createElement('div');
                 card.className = 'question-card';
 
@@ -189,7 +294,7 @@
 
                 const header = document.createElement('div');
                 header.className = 'header';
-                header.innerText = q.category + ` (${index + 1}/${questions.length})`;
+                header.innerText = q.category + ` (Soal ${index + 1}/${shuffledQuestions.length})`;
 
                 const qText = document.createElement('div');
                 qText.className = 'question-text';
@@ -197,7 +302,7 @@
 
                 const expDiv = document.createElement('div');
                 expDiv.className = 'explanation';
-                expDiv.innerHTML = `<strong>💡 Pembahasan:</strong><br>${q.explanation}`;
+                expDiv.innerHTML = `<strong>Pembahasan:</strong><br>${q.explanation}`;
 
                 wrapper.appendChild(header);
                 wrapper.appendChild(qText);
@@ -237,14 +342,15 @@
                 feed.appendChild(card);
             });
 
+            // Kartu Hasil Akhir
             const resultCard = document.createElement('div');
             resultCard.className = 'question-card result-card';
             resultCard.innerHTML = `
                 <div class="content-wrapper" style="align-items: center; text-align: center;">
-                    <h2>🎉 Sesi Selesai! 🎉</h2>
+                    <h2>Sesi Selesai!</h2>
                     <h1 id="final-score-text">0</h1>
-                    <p>dari ${questions.length} soal benar</p>
-                    <button class="reload-btn" onclick="location.reload()">Ulangi Latihan</button>
+                    <p>dari ${shuffledQuestions.length} soal benar</p>
+                    <button class="reload-btn" onclick="location.reload()">Ulangi Latihan (Acak Soal)</button>
                 </div>
             `;
             feed.appendChild(resultCard);
