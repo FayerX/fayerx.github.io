@@ -1,2 +1,3 @@
-# fayerx.github.io
-A website that you'll addictive w utbk 
+FayerX Links
+
+This page only show you my links like my social media, donation, or business contact.
