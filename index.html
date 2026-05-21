@@ -22,9 +22,8 @@
         body {
             margin: 0;
             padding: 0;
-            /* Menggunakan Font Montserrat */
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(180deg, #1e3264 0%, var(--spotify-black) 40%); /* Gradient biru ke hitam (vibe coder) */
+            background: linear-gradient(180deg, #1e3264 0%, var(--spotify-black) 40%);
             background-attachment: fixed;
             color: var(--text-white);
             min-height: 100vh;
@@ -41,7 +40,6 @@
             box-sizing: border-box;
         }
 
-        /* Header / Cover "Album" */
         .header {
             text-align: left;
             margin-bottom: 30px;
@@ -73,7 +71,6 @@
             text-align: center;
         }
 
-        /* Baris Tombol Aksi */
         .action-bar {
             display: flex;
             align-items: center;
@@ -114,7 +111,6 @@
             color: var(--text-white);
         }
 
-        /* Playlist / Daftar Link */
         .playlist {
             display: flex;
             flex-direction: column;
@@ -185,22 +181,21 @@
             justify-content: center;
         }
 
-        /* Dropdown Khusus Contact */
         details {
             width: 100%;
         }
         
         summary {
-            list-style: none; /* Hilangkan panah default browser */
+            list-style: none;
             outline: none;
         }
 
         summary::-webkit-details-marker {
-            display: none; /* Hilangkan panah di browser Safari/Chrome lama */
+            display: none;
         }
 
         .dropdown-content {
-            padding-left: 55px; /* Menjorok ke dalam agar terlihat seperti submenu */
+            padding-left: 55px;
             padding-right: 15px;
             display: flex;
             flex-direction: column;
@@ -227,12 +222,10 @@
             color: var(--text-white);
         }
 
-        /* Ikon spesifik di dropdown */
         .sub-track .fa-whatsapp { color: #25D366; font-size: 1.2rem; }
         .sub-track .fa-envelope { color: #EA4335; font-size: 1.2rem; }
         .sub-track .fa-instagram { color: #E1306C; font-size: 1.2rem; }
 
-        /* Pemutar Musik Palsu */
         .player-bottom {
             position: fixed;
             bottom: 0;
@@ -277,16 +270,18 @@
 
         <div class="playlist">
             
-            <a href="https://instagram.com/fayerclip" class="track" target="_blank">
+            <!-- Track 1: Discord (menggantikan Instagram) -->
+            <a href="https://discord.gg/Q889DS3FWD" class="track" target="_blank">
                 <span class="track-number">1</span>
                 <i class="fas fa-play track-play"></i>
                 <div class="track-info">
-                    <p class="track-title">Instagram</p>
-                    <p class="track-artist">Akun reupload video dari tiktok.</p>
+                    <p class="track-title">Join Discord ICC</p>
+                    <p class="track-artist">Pengen dapet uang cuma dari ngeclip?</p>
                 </div>
-                <span class="track-icon"><i class="fab fa-instagram"></i></span>
+                <span class="track-icon"><i class="fab fa-discord"></i></span>
             </a>
 
+            <!-- Track 2: TikTok utama (tetap) -->
             <a href="https://tiktok.com/@fayerclip" class="track" target="_blank">
                 <span class="track-number">2</span>
                 <i class="fas fa-play track-play"></i>
@@ -297,14 +292,15 @@
                 <span class="track-icon"><i class="fab fa-tiktok"></i></span>
             </a>
 
-            <a href="https://youtube.com/@FayerClip" class="track" target="_blank">
+            <!-- Track 3: TikTok alternatif (menggantikan YouTube) -->
+            <a href="https://www.tiktok.com/@fragyerclip" class="track" target="_blank">
                 <span class="track-number">3</span>
                 <i class="fas fa-play track-play"></i>
                 <div class="track-info">
-                    <p class="track-title">YouTube</p>
-                    <p class="track-artist">Akun buat ngebacot.</p>
+                    <p class="track-title">TikTok Kedua</p>
+                    <p class="track-artist">Akun Tiktok khusus parfum.</p>
                 </div>
-                <span class="track-icon"><i class="fab fa-youtube"></i></span>
+                <span class="track-icon"><i class="fab fa-tiktok"></i></span>
             </a>
 
             <a href="https://saweria.co/FayerX" class="track" target="_blank">
